@@ -11,6 +11,7 @@ Article-Bias-Prediction-main/data/jsons/
 # Generated archives and intermediate outputs
 *.zip
 *.npz
+*.html
 ordinal_roberta_graphs/
 roberta_lstm_hybrid_graphs/
 
