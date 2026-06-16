@@ -9,7 +9,9 @@ The project also references the Hugging Face political-leaning model/data proven
 at [`matous-volf/political-leaning-politics`](https://huggingface.co/matous-volf/political-leaning-politics).
 That model card describes a left/center/right political-leaning classifier based on the
 POLITICS model and a combined political-leaning training corpus that includes the
-Article Bias Prediction dataset.
+Article Bias Prediction dataset. The Hugging Face model card is marked with the
+`cc-by-nc-4.0` license, so use of that model/card materials is limited to
+non-commercial use with attribution unless separate permission is obtained.
 
 ## Report and Final Experiments
 
@@ -56,6 +58,8 @@ scripts below to regenerate predictions from the current folder.
 - `Article-Bias-Prediction-New-Unstructured/`: current flattened new-article JSON input.
 - Hugging Face reference: `matous-volf/political-leaning-politics`, used for
   political-leaning model/data provenance and related left/center/right framing.
+  Its Hugging Face card lists license `cc-by-nc-4.0`; preserve attribution and
+  avoid commercial reuse of those materials without separate permission.
 - `Bias Classifier Report.docx`: editable final report source.
 - `Bias_Classifier_Report.pdf`: exported final report based on Experiment 1 and Experiment 2.
 - `Bias Classifier Presentation.pptx`: final presentation deck.
