@@ -1,0 +1,20 @@
+FOXPULL.py
+Bias Classifier Report.docx
+
+# Large/generated training artifacts
+bias_lstm_model/
+bias_ordinal_roberta_model/
+bias_roberta_lstm_hybrid_model/
+Article-Bias-Prediction-main/data.zip
+Article-Bias-Prediction-main/data/jsons/
+
+# Generated archives and intermediate outputs
+*.zip
+*.npz
+ordinal_roberta_graphs/
+roberta_lstm_hybrid_graphs/
+
+# Local OS/browser metadata
+*Zone.Identifier
+__pycache__/
+.ipynb_checkpoints/
