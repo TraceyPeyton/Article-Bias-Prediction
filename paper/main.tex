@@ -1,6 +1,6 @@
-\documentclass[11pt]{article}
+\documentclass[10pt,twocolumn]{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.75in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -11,6 +11,7 @@
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage[numbers]{natbib}
+\setlength{\columnsep}{0.24in}
 
 \title{Detecting Political Bias in News Articles Using Deep Learning:\\
 From BiLSTM to Ordinal DistilRoBERTa}
@@ -212,14 +213,16 @@ was 0.390 on a 0--2 scale, ordinal MSE was 0.608, and severe error rate was
 
 \begin{table}[h]
 \centering
+\small
+\setlength{\tabcolsep}{3pt}
 \caption{Summary comparison of the two final models.}
 \label{tab:comparison}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{@{}lccccc@{}}
 \toprule
-Model & Accuracy & Left F1 & Center F1 & Right F1 & Severe err. \\
+Model & Acc. & L-F1 & C-F1 & R-F1 & Sev. \\
 \midrule
-BiLSTM baseline & 0.614 & 0.61 & 0.58 & 0.64 & -- \\
-Ordinal DistilRoBERTa & 0.719 & 0.71 & 0.72 & 0.72 & 0.109 \\
+BiLSTM & 0.614 & 0.61 & 0.58 & 0.64 & -- \\
+Ord. RoBERTa & 0.719 & 0.71 & 0.72 & 0.72 & 0.109 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -234,11 +237,13 @@ center, from 31.3\% center under BiLSTM to 64.7\% center under RoBERTa.
 
 \begin{table}[h]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
 \caption{Real-world source prediction comparison.}
 \label{tab:realworld}
-\begin{tabular}{lrr}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-Metric & BiLSTM & Ordinal DistilRoBERTa \\
+Metric & BiLSTM & Ord. RoBERTa \\
 \midrule
 FOX right share & 11.6\% & 74.9\% \\
 FOX left share & 51.4\% & 8.5\% \\
