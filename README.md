@@ -63,6 +63,7 @@ scripts below to regenerate predictions from the current folder.
 - `Bias Classifier Report.docx`: editable final report source.
 - `Bias_Classifier_Report.pdf`: exported final report based on Experiment 1 and Experiment 2.
 - `Bias Classifier Presentation.pptx`: final presentation deck.
+- `paper/`: arXiv-style LaTeX manuscript package derived from the report.
 - `bias_lstm_classifier.ipynb`: Experiment 1 final notebook.
 - `bias_ordinal_roberta_classifier_full_run.ipynb`: Experiment 2 final notebook.
 - `bias_ordinal_roberta_model/`: ordinal DistilRoBERTa classifier, checkpoints, and reports.
