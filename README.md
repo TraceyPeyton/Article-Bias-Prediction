@@ -132,3 +132,25 @@ The previous command still works through a compatibility wrapper:
 ```powershell
 python classify_new_articles_ordinal_roberta.py --input Article-Bias-Prediction-New-Unstructured
 ```
+
+## Future Work
+
+Extend the trained ordinal RoBERTa model to classify arbitrary comments, social posts,
+or short article excerpts. Because the current model was trained on full news articles,
+these predictions should be treated as exploratory until validated on hand-labeled
+comment or social-media examples.
+
+Planned usage for one comment or social post:
+
+```powershell
+bias-classify-text --text "This policy is another handout to corporations." --uncertainty-threshold 0.7
+```
+
+Planned usage for a CSV of comments, preserving the original columns and writing predictions:
+
+```powershell
+bias-classify-text --input comments.csv --text-column comment --output classified_comments.csv --uncertainty-threshold 0.7
+```
+
+For arbitrary comments and social posts, use `--uncertainty-threshold` so short or
+low-signal text can be labeled `uncertain` instead of forcing left/center/right.

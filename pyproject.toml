@@ -27,6 +27,7 @@ dev = [
 
 [project.scripts]
 bias-classify-new-articles = "bias_classifier.cli:main"
+bias-classify-text = "bias_classifier.cli:classify_text_main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

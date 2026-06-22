@@ -6,6 +6,7 @@ from pathlib import Path
 from .data import load_new_articles, project_root
 from .predict import classify_articles
 from .reports import build_source_report, save_charts, write_markdown_report
+from .text_io import apply_uncertainty, load_text_input, prepare_text_frame, save_text_predictions
 
 
 def classify_new_articles_command(argv: list[str] | None = None) -> int:
@@ -54,8 +55,59 @@ def classify_new_articles_command(argv: list[str] | None = None) -> int:
     return 0
 
 
+def classify_text_command(argv: list[str] | None = None) -> int:
+    root = project_root()
+    parser = argparse.ArgumentParser(description="Classify arbitrary text, comments, or social posts with the ordinal bias model.")
+    input_group = parser.add_mutually_exclusive_group(required=True)
+    input_group.add_argument("--text", help="Single text/comment/post to classify.")
+    input_group.add_argument("--input", help="CSV, JSON, JSONL, or NDJSON file containing text rows.")
+    parser.add_argument("--text-column", default="text", help="Column/key containing text when using --input.")
+    parser.add_argument("--output", help="Output path for batch predictions. Supports .csv, .json, .jsonl, .ndjson.")
+    parser.add_argument("--model-dir", default=str(root / "bias_ordinal_roberta_model"))
+    parser.add_argument("--batch-size", type=int, default=32)
+    parser.add_argument("--max-length", type=int)
+    parser.add_argument(
+        "--uncertainty-threshold",
+        type=float,
+        help="Optional minimum confidence from 0 to 1. Lower-confidence rows are labeled uncertain.",
+    )
+    args = parser.parse_args(argv)
+
+    if args.uncertainty_threshold is not None and not 0 <= args.uncertainty_threshold <= 1:
+        raise SystemExit("--uncertainty-threshold must be between 0 and 1.")
+
+    raw_frame = load_text_input(
+        input_path=Path(args.input) if args.input else None,
+        text=args.text,
+        text_column=args.text_column,
+    )
+    model_frame = prepare_text_frame(raw_frame, text_column=args.text_column)
+    predictions = classify_articles(model_frame, Path(args.model_dir), batch_size=args.batch_size, max_length=args.max_length)
+    predictions = apply_uncertainty(predictions, uncertainty_threshold=args.uncertainty_threshold)
+
+    if args.text:
+        row = predictions.iloc[0]
+        print(f"predicted_bias: {row.predicted_bias}")
+        print(f"model_predicted_bias: {row.model_predicted_bias}")
+        print(f"confidence: {row.confidence:.3f}")
+        print(f"ordinal_score_left_to_right: {row.ordinal_score_left_to_right:.3f}")
+        return 0
+
+    output_path = Path(args.output) if args.output else Path(args.input).with_name(f"{Path(args.input).stem}_classified.csv")
+    save_text_predictions(predictions, output_path)
+    print(f"Classified {len(predictions)} rows")
+    print(f"Saved predictions: {output_path}")
+    print("\nPredictions:")
+    print(predictions["predicted_bias"].value_counts().to_string())
+    return 0
+
+
 def main() -> int:
     return classify_new_articles_command()
+
+
+def classify_text_main() -> int:
+    return classify_text_command()
 
 
 if __name__ == "__main__":
