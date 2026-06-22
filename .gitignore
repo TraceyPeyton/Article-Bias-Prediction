@@ -19,3 +19,6 @@ roberta_lstm_hybrid_graphs/
 *Zone.Identifier
 __pycache__/
 .ipynb_checkpoints/
+.venv/
+*.egg-info/
+.pytest_cache/

@@ -1,0 +1,6 @@
+# Convenience install for local development.
+# Dependency versions live in pyproject.toml.
+-e .[dev]
+
+# Install ML dependencies separately when running RoBERTa inference/training:
+# .[ml]

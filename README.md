@@ -104,3 +104,31 @@ scripts.
   labels for outlets.
 - FOX records pulled by `FOXPULL.py` may contain RSS descriptions instead of full article
   text, so compare source-level aggregates with care.
+
+## Python Project Setup
+
+Create and activate the local environment from this folder:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+```
+
+Install the heavier ML runtime only when you need training or model inference:
+
+```powershell
+python -m pip install -e ".[ml]"
+```
+
+The migrated ordinal RoBERTa entry point is available as:
+
+```powershell
+bias-classify-new-articles --input Article-Bias-Prediction-New-Unstructured
+```
+
+The previous command still works through a compatibility wrapper:
+
+```powershell
+python classify_new_articles_ordinal_roberta.py --input Article-Bias-Prediction-New-Unstructured
+```
